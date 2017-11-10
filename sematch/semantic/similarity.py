@@ -589,9 +589,7 @@ class EntitySimilarity:
             ab = self._stats.entity_share(entity1, entity2)
             self.entity_share_stats[(entity1, entity2)] = ab
             self.entity_share_stats[(entity2, entity1)] = ab
-        if ab == 0:
-            return (0., 0.)
-
+        
         a = self.entity_stats.get(entity1)
         if a is None:
             a = self._stats.entity_relation(entity1)
@@ -602,9 +600,10 @@ class EntitySimilarity:
             b = self._stats.entity_relation(entity2)
             self.entity_stats[entity2] = b
         
-        x1 = math.log(a) - math.log(ab)
+        x1 = abs(math.log(a) - math.log(ab))
         y1 = math.log(self.entity_N) - math.log(a)
-        x2 = math.log(b) - math.log(ab)
+        x2 = abs(math.log(b) - math.log(ab))
         y2 = math.log(self.entity_N) - math.log(b)
-        return (1. - x1 / y1, 1. - x2 / y2)
+
+        return (ab, a, b)
 
