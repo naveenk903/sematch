@@ -600,10 +600,5 @@ class EntitySimilarity:
             b = self._stats.entity_relation(entity2)
             self.entity_stats[entity2] = b
         
-        x1 = abs(math.log(a) - math.log(ab))
-        y1 = math.log(self.entity_N) - math.log(a)
-        x2 = abs(math.log(b) - math.log(ab))
-        y2 = math.log(self.entity_N) - math.log(b)
-
         return (ab, a, b)
 
